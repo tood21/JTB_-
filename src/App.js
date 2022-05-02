@@ -1,5 +1,7 @@
-import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import styled from "styled-components";
+import Sidebar from "./components/Sidebar";
 import PortfolioPage from "./pages/PortfolioPage";
 import PostDetailPage from "./pages/PostDetailPage";
 import PostListPage from "./pages/PostListPage";
@@ -8,7 +10,8 @@ import WriterPage from "./pages/WriterPage";
 
 function App() {
   return (
-    <div>
+    <Wrapper>
+      <Sidebar />
       <Routes>
         <Route path='/' element={<PostListPage />} />
         <Route path='/postdetail' element={<PostDetailPage />} />
@@ -16,8 +19,12 @@ function App() {
         <Route path='/writer' element={<WriterPage />} />
         <Route path='/portfolio' element={<PortfolioPage />} />
       </Routes>
-    </div>
+    </Wrapper>
   );
 }
 
 export default App;
+
+const Wrapper = styled.div`
+  display: flex;
+`;
