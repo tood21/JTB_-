@@ -46,6 +46,7 @@ const Title = styled.strong`
 const PostText = styled.p`
   color: ${palette.text};
   margin-bottom: 20px;
+  line-height: 1.5;
 `;
 
 const PostInfo = styled.div`

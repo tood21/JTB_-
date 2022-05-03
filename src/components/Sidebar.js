@@ -36,7 +36,13 @@ const Sidebar = () => {
   ];
   return (
     <Side>
-      <SidebarTitle>스톤보트의 기술블로그</SidebarTitle>
+      <SidebarTitle
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        스톤보트의 기술블로그
+      </SidebarTitle>
       <PrList>
         <PrListItem
           onClick={() => {
