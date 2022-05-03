@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
 import styled from "styled-components";
@@ -6,7 +6,9 @@ import styled from "styled-components";
 export const Editor = () => {
   const quillElement = useRef(null);
   const quillInstance = useRef(null);
+  const [contentData, setContenData] = useState("");
 
+  console.log("쓰기", contentData);
   useEffect(() => {
     quillInstance.current = new Quill(quillElement.current, {
       theme: "snow",
@@ -47,6 +49,12 @@ export const Editor = () => {
         "width",
       ],
     });
+    const quill = quillInstance.current;
+    console.log(
+      quill.on("text-change", (delta, oldDelta, source) => {
+        setContenData(quill.root.innerHTML);
+      })
+    );
   }, []);
 
   return (
