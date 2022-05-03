@@ -40,11 +40,11 @@ const Title = styled.strong`
   font-size: 20px;
   margin-bottom: 20px;
   display: block;
-  color: ${palette.title};
+  color: ${palette.black};
 `;
 
 const PostText = styled.p`
-  color: ${palette.text};
+  color: ${palette.gray};
   margin-bottom: 20px;
   line-height: 1.5;
 `;
@@ -54,6 +54,6 @@ const PostInfo = styled.div`
 `;
 
 const Category = styled.div`
-  color: ${palette.category};
+  color: ${palette.orange};
   margin-right: 20px;
 `;

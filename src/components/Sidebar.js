@@ -60,7 +60,7 @@ const Sidebar = () => {
         </PrListItem>
       </PrList>
       {menus.map((menu, index) => (
-        <SidebarItem menu={menu} />
+        <SidebarItem key={index} menu={menu} />
       ))}
     </Side>
   );

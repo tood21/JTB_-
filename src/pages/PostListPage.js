@@ -6,8 +6,8 @@ import data from "../dummyData";
 const PostListPage = () => {
   return (
     <PostListTemplete>
-      {data.map((data) => (
-        <PostItem data={data} />
+      {data.map((data, index) => (
+        <PostItem key={index} data={data} />
       ))}
     </PostListTemplete>
   );

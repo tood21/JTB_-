@@ -8,8 +8,8 @@ const PostDetailPage = () => {
     <Wrapper>
       <Title>{data[0].title}</Title>
       <PostInfoContainer>
-        <PostInfo color={palette.category}>{data[0].category}</PostInfo>
-        <PostInfo color={palette.text}>{data[0].date}</PostInfo>
+        <PostInfo color={palette.orange}>{data[0].category}</PostInfo>
+        <PostInfo color={palette.gray}>{data[0].date}</PostInfo>
       </PostInfoContainer>
       <p>{data[0].content}</p>
     </Wrapper>
