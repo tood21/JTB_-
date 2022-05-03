@@ -26,5 +26,7 @@ function App() {
 export default App;
 
 const Wrapper = styled.div`
+  position: relative;
   display: flex;
+  padding-left: 300px;
 `;

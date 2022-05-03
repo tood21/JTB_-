@@ -9,6 +9,30 @@ const Sidebar = () => {
     { name: "자바스크립트", path: "/resume" },
     { name: "리액트", path: "/mylist" },
     { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
+    { name: "리액트", path: "/mylist" },
   ];
   return (
     <Side>
@@ -39,6 +63,9 @@ const Sidebar = () => {
 export default Sidebar;
 
 const Side = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 300px;
   height: 100vh;
   overflow: auto;
