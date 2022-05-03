@@ -1,19 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import PostItem from "../components/postlist/PostItem";
+import data from "../dummyData";
 
 const PostListPage = () => {
   return (
     <PostListTemplete>
-      <PostItem />
-      <PostItem />
-      <PostItem />
-      <PostItem />
-      <PostItem />
-      <PostItem />
-      <PostItem />
-      <PostItem />
-      <PostItem />
+      {data.map((data) => (
+        <PostItem data={data} />
+      ))}
     </PostListTemplete>
   );
 };

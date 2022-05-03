@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import palette from "../../lib/styles/palette";
 
-const PostItem = () => {
+const PostItem = ({ data }) => {
   const navigate = useNavigate();
   return (
     <Container
@@ -11,16 +11,17 @@ const PostItem = () => {
         navigate("/postdetail");
       }}
     >
-      <Title>Promise 정리: async/await 사용법 & then과의 차이</Title>
+      <Title>
+        {data.title.length < 70 ? data.title : data.title.slice(0, 70) + "..."}
+      </Title>
       <PostText>
-        서비스 개발을 하다보면 비동기적으로 개발해야 할 일이 많습니다.
-        JavaScript에서는 과거 callback 함수를 통해 비동기를 구현하곤 했으나
-        요즘에는 Promise 객체를 반환하게 하여 async와 await로 작업이 완료되면
-        다음 로직이 진행되게끔 지연시키는 방식을 통해 비동기를 구현하곤 합니다.
+        {data.content.length < 150
+          ? data.content
+          : data.content.slice(0, 150) + "..."}
       </PostText>
       <PostInfo>
-        <Category>카테고리</Category>
-        <p>2022년 2월 22일</p>
+        <Category>{data.category}</Category>
+        <p>{data.date}</p>
       </PostInfo>
     </Container>
   );
