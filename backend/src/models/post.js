@@ -1,0 +1,17 @@
+import mongoose from "mongoose";
+
+const { Schema } = mongoose;
+
+const PostSchema = new Schema({
+  title: String,
+  content: String,
+  category: String,
+  publishdDate: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+const Post = mongoose.model("Post", PostSchema);
+
+export default Post;
