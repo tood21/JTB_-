@@ -6,7 +6,7 @@ const PostSchema = new Schema({
   title: String,
   content: String,
   category: String,
-  publishdDate: {
+  publishedDate: {
     type: Date,
     default: Date.now,
   },

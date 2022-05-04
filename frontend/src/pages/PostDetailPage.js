@@ -1,17 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import data from "../dummyData";
 import palette from "../lib/styles/palette";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { dateChanger } from "../lib/module/dateChanger";
 
 const PostDetailPage = () => {
+  const params = useParams();
+  const [postData, setPostData] = useState({});
+  useEffect(() => {
+    const post = async () => {
+      try {
+        const response = await axios.get(`/api/posts/${params.id}`);
+        console.log("res", response.data.title);
+        setPostData(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    post();
+  }, []);
+
+  console.log(postData);
   return (
     <Wrapper>
-      <Title>{data[0].title}</Title>
+      <Title>{postData.title}</Title>
       <PostInfoContainer>
-        <PostInfo color={palette.orange}>{data[0].category}</PostInfo>
-        <PostInfo color={palette.gray}>{data[0].date}</PostInfo>
+        <PostInfo color={palette.orange}>{postData.category}</PostInfo>
+        <PostInfo color={palette.gray}>
+          {dateChanger(postData.publishedDate)}
+        </PostInfo>
       </PostInfoContainer>
-      <p>{data[0].content}</p>
+      <p>{postData.content}</p>
     </Wrapper>
   );
 };

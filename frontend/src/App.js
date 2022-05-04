@@ -14,7 +14,7 @@ function App() {
       <Sidebar />
       <Routes>
         <Route path='/' element={<PostListPage />} />
-        <Route path='/postdetail' element={<PostDetailPage />} />
+        <Route path='/postdetail/:id' element={<PostDetailPage />} />
         <Route path='/resume' element={<ResumePage />} />
         <Route path='/writer' element={<WriterPage />} />
         <Route path='/portfolio' element={<PortfolioPage />} />

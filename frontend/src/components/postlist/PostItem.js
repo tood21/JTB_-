@@ -1,14 +1,16 @@
 import React from "react";
+import palette from "../../lib/styles/palette";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import palette from "../../lib/styles/palette";
+import { dateChanger } from "../../lib/module/dateChanger";
 
 const PostItem = ({ data }) => {
   const navigate = useNavigate();
+
   return (
     <Container
       onClick={() => {
-        navigate("/postdetail");
+        navigate(`/postdetail/${data._id}`);
       }}
     >
       <Title>
@@ -21,7 +23,7 @@ const PostItem = ({ data }) => {
       </PostText>
       <PostInfo>
         <Category>{data.category}</Category>
-        <p>{data.date}</p>
+        <p>{dateChanger(data.publishedDate)}</p>
       </PostInfo>
     </Container>
   );
