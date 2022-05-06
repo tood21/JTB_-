@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 
 const app = express();
 const port = 5000;
+const config = require("./config/key.js");
 
 const { Post } = require("./model/Post");
 const { Counter } = require("./model/Counter");
@@ -14,9 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.listen(port, () => {
   mongoose
-    .connect(
-      "mongodb+srv://skkwin:sd12341!@boilerplate.zqy0o.mongodb.net/blog?retryWrites=true&w=majority"
-    )
+    .connect(config.mongoURI)
     .then(() => {
       console.log(`Example app listening on port ${port}`);
       console.log("Connection MongoDB...");
