@@ -3,8 +3,8 @@ export const dateChanger = (data) => {
   const getYear = newDate.getFullYear();
   const getMonth = newDate.getMonth() + 1;
   const getDate = newDate.getDate();
-  const getHours = newDate.getHours();
-  const getMinutes = newDate.getMinutes();
+  const getHours = String(newDate.getHours()).padStart(2, "0");
+  const getMinutes = String(newDate.getMinutes()).padStart(2, "0");
 
   return (
     <p>{`${getYear}년 ${getMonth}월 ${getDate}일 ${getHours}:${getMinutes}`}</p>

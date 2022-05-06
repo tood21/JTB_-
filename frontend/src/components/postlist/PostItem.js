@@ -10,17 +10,20 @@ const PostItem = ({ data }) => {
   return (
     <Container
       onClick={() => {
-        navigate(`/postdetail/${data._id}`);
+        navigate(`/postdetail/${data.postNum}`);
       }}
     >
       <Title>
         {data.title.length < 70 ? data.title : data.title.slice(0, 70) + "..."}
       </Title>
-      <PostText>
-        {data.content.length < 150
-          ? data.content
-          : data.content.slice(0, 150) + "..."}
-      </PostText>
+      <PostText
+        dangerouslySetInnerHTML={{
+          __html:
+            data.content.length < 150
+              ? data.content
+              : data.content.slice(0, 150) + "...",
+        }}
+      ></PostText>
       <PostInfo>
         <Category>{data.category}</Category>
         <p>{dateChanger(data.publishedDate)}</p>

@@ -8,12 +8,17 @@ import { dateChanger } from "../lib/module/dateChanger";
 const PostDetailPage = () => {
   const params = useParams();
   const [postData, setPostData] = useState({});
+
   useEffect(() => {
     const post = async () => {
       try {
-        const response = await axios.get(`/api/posts/${params.id}`);
-        console.log("res", response.data.title);
-        setPostData(response.data);
+        let body = {
+          postNum: params.postNum,
+        };
+        const response = await axios.post("/api/posts/detail", body);
+        if (response.data.success) {
+          setPostData(response.data.post);
+        }
       } catch (e) {
         console.log(e);
       }
@@ -21,7 +26,10 @@ const PostDetailPage = () => {
     post();
   }, []);
 
-  console.log(postData);
+  useEffect(() => {
+    console.log(postData);
+  }, [postData]);
+
   return (
     <Wrapper>
       <Title>{postData.title}</Title>
@@ -31,7 +39,7 @@ const PostDetailPage = () => {
           {dateChanger(postData.publishedDate)}
         </PostInfo>
       </PostInfoContainer>
-      <p>{postData.content}</p>
+      <p dangerouslySetInnerHTML={{ __html: postData.content }}></p>
     </Wrapper>
   );
 };

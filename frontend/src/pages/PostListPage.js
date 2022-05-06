@@ -4,13 +4,16 @@ import PostItem from "../components/postlist/PostItem";
 import axios from "axios";
 
 const PostListPage = () => {
-  const [data, setData] = useState([]);
+  const [PostList, setPostList] = useState([]);
+
   useEffect(() => {
     const lists = async () => {
       try {
-        const response = await axios.get("/api/posts");
+        const response = await axios.post("/api/posts/list");
         console.log("res", response.data);
-        setData(response.data);
+        if (response.data.success) {
+          setPostList([...response.data.postList]);
+        }
       } catch (e) {
         console.log(e);
       }
@@ -20,7 +23,7 @@ const PostListPage = () => {
 
   return (
     <PostListTemplete>
-      {data.map((data, index) => (
+      {PostList.map((data, index) => (
         <PostItem key={index} data={data} />
       ))}
     </PostListTemplete>

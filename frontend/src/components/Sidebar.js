@@ -8,31 +8,6 @@ const Sidebar = () => {
   const menus = [
     { name: "자바스크립트", path: "/resume" },
     { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
-    { name: "리액트", path: "/mylist" },
   ];
   return (
     <Side>
@@ -43,6 +18,13 @@ const Sidebar = () => {
       >
         스톤보트의 기술블로그
       </SidebarTitle>
+      <p
+        onClick={() => {
+          navigate("/writer");
+        }}
+      >
+        글쓰기
+      </p>
       <PrList>
         <PrListItem
           onClick={() => {
