@@ -7,6 +7,7 @@ import PostDetailPage from "./pages/PostDetailPage";
 import PostListPage from "./pages/PostListPage";
 import ResumePage from "./pages/ResumePage";
 import WriterPage from "./pages/WriterPage";
+import PostEditPage from "./pages/PostEditPage";
 
 function App() {
   return (
@@ -14,9 +15,10 @@ function App() {
       <Sidebar />
       <Routes>
         <Route path='/' element={<PostListPage />} />
-        <Route path='/postdetail/:postNum' element={<PostDetailPage />} />
-        <Route path='/resume' element={<ResumePage />} />
         <Route path='/writer' element={<WriterPage />} />
+        <Route path='/resume' element={<ResumePage />} />
+        <Route path='/post/detail/:postNum' element={<PostDetailPage />} />
+        <Route path='/post/edit/:postNum' element={<PostEditPage />} />
         <Route path='/portfolio' element={<PortfolioPage />} />
       </Routes>
     </Wrapper>

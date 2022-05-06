@@ -10,7 +10,7 @@ const PostItem = ({ data }) => {
   return (
     <Container
       onClick={() => {
-        navigate(`/postdetail/${data.postNum}`);
+        navigate(`/post/detail/${data.postNum}`);
       }}
     >
       <Title>
