@@ -1,16 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
-import Quill from "quill";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import palette from "../lib/styles/palette";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { Editor } from "../components/writer/Editor";
 
 const PostEditPage = () => {
   const navigate = useNavigate();
   const params = useParams();
   const [postData, setPostData] = useState({});
-  const quillElement = useRef(null);
-  const quillInstance = useRef(null);
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [content, setContent] = useState("");
@@ -31,62 +28,6 @@ const PostEditPage = () => {
     };
     post();
   }, []);
-
-  useEffect(() => {
-    quillInstance.current = new Quill(quillElement.current, {
-      theme: "snow",
-      placeholder: "내용을 작성하세요...",
-      modules: {
-        toolbar: [
-          [{ size: ["small", false, "large", "huge"] }], // custom dropdown
-          [{ header: [1, 2, 3, 4, 5, 6, false] }],
-          [("bold", "italic", "underline", "strike")], // toggled buttons
-          ["blockquote", "code-block"],
-
-          [{ list: "ordered" }, { list: "bullet" }, { align: [] }],
-          [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
-
-          [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-          ["link", "image"],
-          ["clean"], // remove formatting button
-        ],
-      },
-      // handlers: {
-      //   image: imageHandler,
-      // },
-      formats: [
-        "header",
-        "font",
-        "size",
-        "bold",
-        "italic",
-        "underline",
-        "strike",
-        "align",
-        "blockquote",
-        "list",
-        "bullet",
-        "indent",
-        "background",
-        "color",
-        "link",
-        "image",
-        "video",
-        "width",
-      ],
-    });
-
-    //현재 입력 되어 있는 데이터(글, 그림 등등을 html형식으로 보여줌)
-    const quill = quillInstance.current;
-
-    quill.on("text-change", (delta, oldDelta, source) => {
-      setContent(quill.root.innerHTML);
-    });
-  }, []);
-
-  useEffect(() => {
-    quillInstance.current.root.innerHTML = postData.content;
-  }, [postData]);
 
   useEffect(() => {
     setTitle(postData.title);
@@ -127,20 +68,23 @@ const PostEditPage = () => {
       console.log(e);
     }
   };
+
   return (
     <Wrapper>
       <TitleInput
         onChange={onChangeTitle}
-        placeholder='제목을 입력하세요'
         value={title}
+        placeholder='제목을 입력하세요'
       />
-      <EditorWrapper ref={quillElement} />
+      <Editor postData={postData} setContent={setContent} />
       <input
         onChange={onChangeCategory}
-        placeholder='카테고리를 입력하세요'
         value={category}
+        placeholder='카테고리를 입력하세요'
       />
-      <button onClick={onClickHandler}>발행</button>
+      <ButtonDiv>
+        <button onClick={onClickHandler}>발행</button>
+      </ButtonDiv>
     </Wrapper>
   );
 };
@@ -148,7 +92,8 @@ const PostEditPage = () => {
 export default PostEditPage;
 
 const Wrapper = styled.div`
-  padding: 100px;
+  width: 90%;
+  margin-top: 50px;
 `;
 
 const TitleInput = styled.input`
@@ -159,7 +104,21 @@ const TitleInput = styled.input`
   padding: 10px;
 `;
 
-const EditorWrapper = styled.div`
-  font-family: "NotoSansKr";
-  min-height: 400px;
+const ButtonDiv = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 0;
+  button {
+    border: 1px solid black;
+    margin-right: 10px;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px 10px;
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
 `;

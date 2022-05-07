@@ -1,17 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
 import styled from "styled-components";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
-export const Editor = () => {
-  const navigate = useNavigate();
+export const Editor = (props) => {
   const quillElement = useRef(null);
   const quillInstance = useRef(null);
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
-  const [content, setContent] = useState("");
 
   useEffect(() => {
     quillInstance.current = new Quill(quillElement.current, {
@@ -61,67 +55,21 @@ export const Editor = () => {
     const quill = quillInstance.current;
     console.log(
       quill.on("text-change", (delta, oldDelta, source) => {
-        setContent(quill.root.innerHTML);
+        props.setContent(quill.root.innerHTML);
       })
     );
   }, []);
 
-  const onChangeTitle = (e) => {
-    setTitle(e.target.value);
-  };
-
-  const onChangeCategory = (e) => {
-    setCategory(e.target.value);
-  };
-
-  const onClickHandler = async () => {
-    if (title === "" || content === "" || category === "") {
-      return alert("모든 항목을 채워주세요!");
+  useEffect(() => {
+    if (props.postData) {
+      quillInstance.current.root.innerHTML = props.postData.content;
     }
+  }, [props.postData]);
 
-    let body = {
-      title: title,
-      content: content,
-      category: category,
-    };
-
-    try {
-      const response = await axios.post("/api/posts/write", body);
-      console.log("res", response.data);
-      if (response.data.success) {
-        alert("글 작성이 성공하였습니다.");
-        navigate("/");
-      } else {
-        alert("글 작성이 실패하였습니다.");
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  return (
-    <Wrapper>
-      <TitleInput onChange={onChangeTitle} placeholder='제목을 입력하세요' />
-      <EditorWrapper ref={quillElement} />
-      <input onChange={onChangeCategory} placeholder='카테고리를 입력하세요' />
-      <button onClick={onClickHandler}>발행</button>
-    </Wrapper>
-  );
+  return <EditorWrapper ref={quillElement} />;
 };
-
-const Wrapper = styled.div`
-  padding: 100px;
-`;
-
-const TitleInput = styled.input`
-  width: 100%;
-  border-bottom: #ccc 1px solid;
-  font-size: 34px;
-  margin-bottom: 20px;
-  padding: 10px;
-`;
 
 const EditorWrapper = styled.div`
   font-family: "NotoSansKr";
-  min-height: 400px;
+  min-height: 300px;
 `;

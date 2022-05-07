@@ -30,5 +30,6 @@ export default App;
 const Wrapper = styled.div`
   position: relative;
   display: flex;
+  justify-content: center;
   padding-left: 300px;
 `;

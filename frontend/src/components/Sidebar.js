@@ -60,6 +60,7 @@ const Side = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-right: 2px solid black;
   &::-webkit-scrollbar {
     width: 8px;
     height: 8px;

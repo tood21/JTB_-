@@ -16,6 +16,10 @@ const PostItem = ({ data }) => {
       <Title>
         {data.title.length < 70 ? data.title : data.title.slice(0, 70) + "..."}
       </Title>
+      <PostInfo>
+        <Category>{data.category}</Category>
+        <p>{dateChanger(data.publishedDate)}</p>
+      </PostInfo>
       <PostText
         dangerouslySetInnerHTML={{
           __html:
@@ -24,10 +28,6 @@ const PostItem = ({ data }) => {
               : data.content.slice(0, 150) + "...",
         }}
       ></PostText>
-      <PostInfo>
-        <Category>{data.category}</Category>
-        <p>{dateChanger(data.publishedDate)}</p>
-      </PostInfo>
     </Container>
   );
 };
@@ -37,14 +37,15 @@ export default PostItem;
 const Container = styled.li`
   border: 2px solid blue;
   width: 80%;
-  min-height: 150px;
+  height: 200px;
   margin-bottom: 50px;
   padding: 20px;
 `;
 const Title = styled.strong`
-  font-size: 20px;
+  font-size: 24px;
   margin-bottom: 20px;
   display: block;
+  font-weight: bold;
   color: ${palette.black};
 `;
 
@@ -56,6 +57,7 @@ const PostText = styled.p`
 
 const PostInfo = styled.div`
   display: flex;
+  margin-bottom: 10px;
 `;
 
 const Category = styled.div`

@@ -47,6 +47,7 @@ const PostDetailPage = () => {
 
             <p dangerouslySetInnerHTML={{ __html: postData.content }}></p>
           </Post>
+          <hr />
           <ButtonDiv>
             <button
               onClick={() => {
@@ -66,10 +67,8 @@ const PostDetailPage = () => {
 export default PostDetailPage;
 
 const Wrapper = styled.div`
-  border: 2px solid red;
-  width: 100%;
+  width: 90%;
   margin-top: 100px;
-  padding: 30px 20px;
 `;
 
 const Post = styled.div`
