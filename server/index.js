@@ -6,12 +6,11 @@ const app = express();
 const port = 5000;
 const config = require("./config/key.js");
 
-const { Post } = require("./model/Post");
-const { Counter } = require("./model/Counter");
-
 app.use(express.static(path.join(__dirname, "../frontend/build")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use("/api/posts", require("./router/post.js"));
 
 app.listen(port, () => {
   mongoose
@@ -31,72 +30,4 @@ app.get("/", (req, res) => {
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
-});
-
-app.post("/api/posts/write", (req, res) => {
-  let temp = req.body;
-  Counter.findOne({ name: "counter" })
-    .exec()
-    .then((counter) => {
-      temp.postNum = counter.postNum;
-      const blotPost = new Post(temp);
-      blotPost.save().then(() => {
-        Counter.updateOne({ name: "counter" }, { $inc: { postNum: 1 } }).then(
-          () => {
-            res.status(200).json({ success: true });
-          }
-        );
-      });
-    })
-    .catch((err) => {
-      res.status(400).json({ success: false });
-    });
-});
-
-app.post("/api/posts/list", (req, res) => {
-  Post.find()
-    .exec()
-    .then((doc) => {
-      res.status(200).json({ success: true, postList: doc });
-    })
-    .catch((err) => {
-      res.status(400).json({ success: false });
-    });
-});
-
-app.post("/api/posts/detail", (req, res) => {
-  Post.findOne({ postNum: Number(req.body.postNum) })
-    .exec()
-    .then((doc) => {
-      res.status(200).json({ success: true, post: doc });
-    })
-    .catch((err) => {
-      res.status(400).json({ success: false });
-    });
-});
-
-app.post("/api/posts/edit", (req, res) => {
-  let temp = {
-    title: req.body.title,
-    content: req.body.content,
-  };
-  Post.updateOne({ postNum: Number(req.body.postNum) }, { $set: temp })
-    .exec()
-    .then((doc) => {
-      res.status(200).json({ success: true, post: doc });
-    })
-    .catch((err) => {
-      res.status(400).json({ success: false });
-    });
-});
-
-app.post("/api/posts/delete", (req, res) => {
-  Post.deleteOne({ postNum: Number(req.body.postNum) })
-    .exec()
-    .then(() => {
-      res.status(200).json({ success: true });
-    })
-    .catch((err) => {
-      res.status(400).json({ success: false });
-    });
 });
