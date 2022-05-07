@@ -43,7 +43,9 @@ const PostEditPage = () => {
     setCategory(e.target.value);
   };
 
-  const onClickHandler = async () => {
+  const onClickHandler = async (e) => {
+    e.preventDefault();
+
     if (title === "" || content === "" || category === "") {
       return alert("모든 항목을 채워주세요!");
     }
@@ -70,28 +72,40 @@ const PostEditPage = () => {
   };
 
   return (
-    <Wrapper>
+    <Form>
       <TitleInput
         onChange={onChangeTitle}
         value={title}
         placeholder='제목을 입력하세요'
       />
+      <CategoryDiv>
+        <label htmlFor='category'>카테고리</label>
+        <input
+          id='category'
+          onChange={onChangeCategory}
+          value={category}
+          placeholder='카테고리를 입력하세요'
+        />
+      </CategoryDiv>
       <Editor postData={postData} setContent={setContent} />
-      <input
-        onChange={onChangeCategory}
-        value={category}
-        placeholder='카테고리를 입력하세요'
-      />
       <ButtonDiv>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(-1);
+          }}
+        >
+          취소
+        </button>
         <button onClick={onClickHandler}>발행</button>
       </ButtonDiv>
-    </Wrapper>
+    </Form>
   );
 };
 
 export default PostEditPage;
 
-const Wrapper = styled.div`
+const Form = styled.form`
   width: 90%;
   margin-top: 50px;
 `;
@@ -105,10 +119,9 @@ const TitleInput = styled.input`
 `;
 
 const ButtonDiv = styled.div`
-  width: 100%;
   display: flex;
   justify-content: flex-end;
-  margin: 20px 0;
+  margin-top: 10px;
   button {
     border: 1px solid black;
     margin-right: 10px;
@@ -120,5 +133,13 @@ const ButtonDiv = styled.div`
       background-color: black;
       color: white;
     }
+  }
+`;
+
+const CategoryDiv = styled.div`
+  margin-bottom: 20px;
+  input {
+    border: 1px solid gray;
+    margin-left: 10px;
   }
 `;

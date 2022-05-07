@@ -18,7 +18,8 @@ const WriterPage = () => {
     setCategory(e.target.value);
   };
 
-  const onClickHandler = async () => {
+  const onClickHandler = async (e) => {
+    e.preventDefault();
     if (title === "" || content === "" || category === "") {
       return alert("모든 항목을 채워주세요!");
     }
@@ -43,18 +44,40 @@ const WriterPage = () => {
     }
   };
   return (
-    <Wrapper>
-      <TitleInput onChange={onChangeTitle} placeholder='제목을 입력하세요' />
+    <Form>
+      <TitleInput
+        onChange={onChangeTitle}
+        value={title}
+        placeholder='제목을 입력하세요'
+      />
+      <CategoryDiv>
+        <label htmlFor='category'>카테고리</label>
+        <input
+          id='category'
+          onChange={onChangeCategory}
+          value={category}
+          placeholder='카테고리를 입력하세요'
+        />
+      </CategoryDiv>
       <Editor setContent={setContent} />
-      <input onChange={onChangeCategory} placeholder='카테고리를 입력하세요' />
-      <button onClick={onClickHandler}>발행</button>
-    </Wrapper>
+      <ButtonDiv>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(-1);
+          }}
+        >
+          취소
+        </button>
+        <button onClick={onClickHandler}>발행</button>
+      </ButtonDiv>
+    </Form>
   );
 };
 
 export default WriterPage;
 
-const Wrapper = styled.div`
+const Form = styled.form`
   width: 90%;
   margin-top: 50px;
 `;
@@ -65,4 +88,30 @@ const TitleInput = styled.input`
   font-size: 34px;
   margin-bottom: 20px;
   padding: 10px;
+`;
+
+const ButtonDiv = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  button {
+    border: 1px solid black;
+    margin-right: 10px;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px 10px;
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
+`;
+
+const CategoryDiv = styled.div`
+  margin-bottom: 20px;
+  input {
+    border: 1px solid gray;
+    margin-left: 10px;
+  }
 `;

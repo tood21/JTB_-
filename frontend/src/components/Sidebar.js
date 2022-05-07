@@ -18,13 +18,7 @@ const Sidebar = () => {
       >
         스톤보트의 기술블로그
       </SidebarTitle>
-      <p
-        onClick={() => {
-          navigate("/writer");
-        }}
-      >
-        글쓰기
-      </p>
+
       <PrList>
         <PrListItem
           onClick={() => {
@@ -33,6 +27,7 @@ const Sidebar = () => {
         >
           이력서
         </PrListItem>
+
         <PrListItem
           onClick={() => {
             navigate("/portfolio");
@@ -41,6 +36,14 @@ const Sidebar = () => {
           포트폴리오
         </PrListItem>
       </PrList>
+      <WriteButton
+        type='button'
+        onClick={() => {
+          navigate("/writer");
+        }}
+      >
+        글 작성하기
+      </WriteButton>
       {menus.map((menu, index) => (
         <SidebarItem key={index} menu={menu} />
       ))}
@@ -87,4 +90,11 @@ const PrList = styled.ul`
 const PrListItem = styled.li`
   font-size: 20px;
   margin-bottom: 20px;
+`;
+
+const WriteButton = styled.button`
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: red;
+  cursor: pointer;
 `;

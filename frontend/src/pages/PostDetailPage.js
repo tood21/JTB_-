@@ -32,6 +32,25 @@ const PostDetailPage = () => {
     setLoading(false);
   }, [postData]);
 
+  const postDeleteHandler = async () => {
+    if (window.confirm("글을 삭제 하시겠습니까?")) {
+      try {
+        let body = {
+          postNum: params.postNum,
+        };
+        const response = await axios.post("/api/posts/delete", body);
+        if (response.data.success) {
+          setPostData(response.data.post);
+          alert("게시글이 삭제 되었습니다.");
+          navigate("/");
+        }
+      } catch (e) {
+        console.log(e);
+        alert("게시글이 삭제 실패하였습니다.");
+      }
+    }
+  };
+
   return (
     <Wrapper>
       {loading ? null : (
@@ -56,7 +75,7 @@ const PostDetailPage = () => {
             >
               수정
             </button>
-            <button>삭제</button>
+            <button onClick={postDeleteHandler}>삭제</button>
           </ButtonDiv>
         </>
       )}
