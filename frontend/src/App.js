@@ -23,11 +23,11 @@ function App() {
       </Button>
       <Routes>
         <Route path='/' element={<PostListPage />} />
-        <Route path='/writer' element={<WriterPage />} />
         <Route path='/resume' element={<ResumePage />} />
+        <Route path='/portfolio' element={<PortfolioPage />} />
+        <Route path='/writer' element={<WriterPage />} />
         <Route path='/post/detail/:postNum' element={<PostDetailPage />} />
         <Route path='/post/edit/:postNum' element={<PostEditPage />} />
-        <Route path='/portfolio' element={<PortfolioPage />} />
       </Routes>
     </Wrapper>
   );

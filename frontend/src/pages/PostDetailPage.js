@@ -40,7 +40,6 @@ const PostDetailPage = () => {
         };
         const response = await axios.post("/api/posts/delete", body);
         if (response.data.success) {
-          setPostData(response.data.post);
           alert("게시글이 삭제 되었습니다.");
           navigate("/");
         }

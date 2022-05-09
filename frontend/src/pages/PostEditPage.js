@@ -87,7 +87,7 @@ const PostEditPage = () => {
           placeholder='카테고리를 입력하세요'
         />
       </CategoryDiv>
-      <Editor postData={postData} setContent={setContent} />
+      <Editor content={content} setContent={setContent} />
       <ButtonDiv>
         <button
           onClick={(e) => {

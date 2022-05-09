@@ -17,6 +17,7 @@ const WriterPage = () => {
   const onChangeCategory = (e) => {
     setCategory(e.target.value);
   };
+  console.log("컨텐츠", content);
 
   const onClickHandler = async (e) => {
     e.preventDefault();
@@ -59,7 +60,7 @@ const WriterPage = () => {
           placeholder='카테고리를 입력하세요'
         />
       </CategoryDiv>
-      <Editor setContent={setContent} />
+      <Editor content={content} setContent={setContent} />
       <ButtonDiv>
         <button
           onClick={(e) => {
