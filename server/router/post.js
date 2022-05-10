@@ -52,6 +52,7 @@ router.post("/edit", (req, res) => {
   let temp = {
     title: req.body.title,
     content: req.body.content,
+    text: req.body.text,
   };
   Post.updateOne({ postNum: Number(req.body.postNum) }, { $set: temp })
     .exec()
@@ -73,27 +74,6 @@ router.post("/delete", (req, res) => {
       res.status(400).json({ success: false });
     });
 });
-
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "image/");
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, Date.now() + "-" + file.originalname);
-//   },
-// });
-
-// const upload = multer({ storage: storage }).single("file");
-
-// router.post("/image/upload", (req, res) => {
-//   upload(req, res, (err) => {
-//     if (err) {
-//       res.status(400).json({ success: false });
-//     } else {
-//       res.status(200).json({ success: true, filePath: res.req.file.path });
-//     }
-//   });
-// });
 
 router.post("/image/upload", setUpload("react-blog/post"), (req, res) => {
   console.log(res.req);

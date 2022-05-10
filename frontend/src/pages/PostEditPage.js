@@ -11,6 +11,7 @@ const PostEditPage = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [content, setContent] = useState("");
+  const [text, setText] = useState("");
 
   useEffect(() => {
     const post = async () => {
@@ -33,6 +34,7 @@ const PostEditPage = () => {
     setTitle(postData.title);
     setContent(postData.content);
     setCategory(postData.category);
+    setText(postData.text);
   }, [postData]);
 
   const onChangeTitle = (e) => {
@@ -87,7 +89,7 @@ const PostEditPage = () => {
           placeholder='카테고리를 입력하세요'
         />
       </CategoryDiv>
-      <Editor content={content} setContent={setContent} />
+      <Editor content={content} setContent={setContent} setText={setText} />
       <ButtonDiv>
         <button
           onClick={(e) => {

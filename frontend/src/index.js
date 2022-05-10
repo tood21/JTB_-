@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import GlobalStyle from "./lib/styles/GlobalStyles";
 import "./index.css";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import GlobalStyle from "./lib/styles/GlobalStyles";
+import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <BrowserRouter>

@@ -32,9 +32,9 @@ const GlobalStyle = createGlobalStyle`
     list-style: none;
   }
   img {
-    display: block;
-    width: 100%;
-    height: 100%;
+    /* display: block; */
+    /* width: 100%; */
+    /* height: 100%; */
   }
 `;
 

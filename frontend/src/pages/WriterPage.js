@@ -9,6 +9,7 @@ const WriterPage = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [content, setContent] = useState("");
+  const [text, setText] = useState("");
 
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -17,7 +18,6 @@ const WriterPage = () => {
   const onChangeCategory = (e) => {
     setCategory(e.target.value);
   };
-  console.log("컨텐츠", content);
 
   const onClickHandler = async (e) => {
     e.preventDefault();
@@ -29,6 +29,7 @@ const WriterPage = () => {
       title: title,
       content: content,
       category: category,
+      text: text,
     };
 
     try {
@@ -60,7 +61,7 @@ const WriterPage = () => {
           placeholder='카테고리를 입력하세요'
         />
       </CategoryDiv>
-      <Editor content={content} setContent={setContent} />
+      <Editor content={content} setContent={setContent} setText={setText} />
       <ButtonDiv>
         <button
           onClick={(e) => {

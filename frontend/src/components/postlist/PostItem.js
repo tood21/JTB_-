@@ -23,9 +23,9 @@ const PostItem = ({ data }) => {
       <PostText
         dangerouslySetInnerHTML={{
           __html:
-            data.content.length < 150
-              ? data.content
-              : data.content.slice(0, 150) + "...",
+            data.text.length < 150
+              ? data.text
+              : data.text.slice(0, 150) + "...",
         }}
       ></PostText>
     </Container>
