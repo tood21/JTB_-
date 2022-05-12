@@ -1,6 +1,13 @@
 import "./App.css";
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { Route, Routes } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser, clearUser } from "./Reducer/userSlice";
 import styled from "styled-components";
+import firebase from "./fisebase.js";
+
 import Sidebar from "./components/Sidebar";
 import PortfolioPage from "./pages/PortfolioPage";
 import PostDetailPage from "./pages/PostDetailPage";
@@ -8,14 +15,23 @@ import PostListPage from "./pages/PostListPage";
 import ResumePage from "./pages/ResumePage";
 import WriterPage from "./pages/WriterPage";
 import PostEditPage from "./pages/PostEditPage";
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
 function App() {
   const [sidebar, setSidebar] = useState(true);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((userInfo) => {
+      if (userInfo !== null) {
+        dispatch(loginUser(userInfo.multiFactor.user));
+      } else {
+        dispatch(clearUser());
+      }
+    });
+  }, []);
 
   return (
     <Wrapper padding={sidebar}>
