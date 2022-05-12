@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/posts", require("./router/post.js"));
+app.use("/api/user", require("./router/user.js"));
 
 app.listen(port, () => {
   mongoose

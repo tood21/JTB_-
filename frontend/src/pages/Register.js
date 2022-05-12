@@ -1,18 +1,59 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-// import firebase from "../fisebase.js";
+import firebase from "../fisebase.js";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [nickname, setNickname] = useState("");
-  const [Email, setEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+
+  const registerHandler = async (e) => {
+    e.preventDefault();
+    console.log(e);
+
+    if (!(nickname && email && password && passwordConfirm)) {
+      return alert("모든 값을 채워주세요!");
+    }
+    if (!(password.length > 5)) {
+      return alert("비밀번호는 6자 이상 입력해주세요!");
+    }
+
+    if (password !== passwordConfirm) {
+      return alert("비밀번호화 비밀번호 확인 값은 같아야 합니다.");
+    } else {
+      let createdUser = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password);
+
+      await createdUser.user.updateProfile({
+        displayName: nickname,
+      });
+      let body = {
+        email: createdUser.user.multiFactor.user.email,
+        displayName: createdUser.user.multiFactor.user.displayName,
+        uid: createdUser.user.multiFactor.user.uid,
+      };
+
+      axios.post("/api/user/register", body).then((response) => {
+        if (response.data.success) {
+          navigate("/login");
+        } else {
+          return alert("회원가입이 실패하였습니다.");
+        }
+      });
+    }
+  };
 
   return (
     <LoginDiv>
       <form>
-        <label>닉네임</label>
+        <label htmlFor='nickname'>닉네임</label>
         <input
+          id='nickname'
           type='name'
           value={nickname}
           onChange={(e) => {
@@ -29,7 +70,7 @@ const Register = () => {
         <label>이메일</label>
         <input
           type='email'
-          value={Email}
+          value={email}
           onChange={(e) => {
             setEmail(e.currentTarget.value);
           }}
@@ -38,7 +79,6 @@ const Register = () => {
         <input
           type='password'
           value={password}
-          minLength={8}
           onChange={(e) => {
             setpassword(e.currentTarget.value);
           }}
@@ -51,7 +91,13 @@ const Register = () => {
             setPasswordConfirm(e.currentTarget.value);
           }}
         />
-        <button>회원가입</button>
+        <button
+          onClick={(e) => {
+            registerHandler(e);
+          }}
+        >
+          회원가입
+        </button>
       </form>
     </LoginDiv>
   );
