@@ -10,6 +10,8 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [nicknameCheck, setNicknameCheck] = useState(false);
+  const [ninknameCheckMessage, setNicknameCheckMessage] = useState("");
 
   const registerHandler = async (e) => {
     e.preventDefault();
@@ -20,6 +22,9 @@ const Register = () => {
     }
     if (!(password.length > 5)) {
       return alert("비밀번호는 6자 이상 입력해주세요!");
+    }
+    if (!nicknameCheck) {
+      return alert("닉네임 중복검사를 진행해 주세요.");
     }
 
     if (password !== passwordConfirm) {
@@ -47,6 +52,26 @@ const Register = () => {
       });
     }
   };
+  const nicknameCheckHandler = (e) => {
+    e.preventDefault();
+    if (!nickname) {
+      alert("닉네임을 입력해주세요");
+    }
+    let body = {
+      displayName: nickname,
+    };
+    axios.post("/api/user/namecheck", body).then((response) => {
+      if (response.data.success) {
+        if (response.data.check) {
+          setNicknameCheck(true);
+          setNicknameCheckMessage("사용가능한 닉네임입니다.");
+        } else {
+          setNicknameCheck(false);
+          setNicknameCheckMessage("사용불가능한 닉네임입니다.");
+        }
+      }
+    });
+  };
 
   return (
     <LoginDiv>
@@ -56,17 +81,24 @@ const Register = () => {
           id='nickname'
           type='name'
           value={nickname}
+          disabled={nicknameCheck}
           onChange={(e) => {
             setNickname(e.currentTarget.value);
           }}
         />
-        {/* <button
+        {nicknameCheck ? (
+          <p style={{ color: "red" }}>{ninknameCheckMessage}</p>
+        ) : (
+          <p style={{ color: "blue" }}>{ninknameCheckMessage}</p>
+        )}
+        <button
+          style={{ marginBottom: "15px" }}
           onClick={(e) => {
-            NameCheckFunc(e);
+            nicknameCheckHandler(e);
           }}
         >
           닉네임 중복검사
-        </button> */}
+        </button>
         <label>이메일</label>
         <input
           type='email'

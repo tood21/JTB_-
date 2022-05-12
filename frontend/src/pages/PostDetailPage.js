@@ -62,7 +62,9 @@ const PostDetailPage = () => {
             <Title>{postData.title}</Title>
             <PostInfoDiv>
               <PostInfo color={palette.orange}>{postData.category}</PostInfo>
-              <PostInfo color={palette.gray}></PostInfo>
+              <PostInfo color={palette.gray}>
+                {dateChanger(postData.publishedDate)}
+              </PostInfo>
               <PostInfo color='black'>
                 작성자 : {postData.author.displayName}
               </PostInfo>
