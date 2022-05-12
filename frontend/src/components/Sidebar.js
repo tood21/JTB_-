@@ -1,14 +1,22 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SidebarItem from "./SidebarItem";
+import firebase from "../fisebase.js";
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
   const menus = [
     { name: "자바스크립트", path: "/resume" },
     { name: "리액트", path: "/mylist" },
   ];
+
+  const logoutHandler = () => {
+    firebase.auth().signOut();
+    navigate("/");
+  };
   return (
     <Side>
       <SidebarTitle
@@ -36,13 +44,25 @@ const Sidebar = () => {
           포트폴리오
         </PrListItem>
       </PrList>
-      <PrListItem
-        onClick={() => {
-          navigate("/login");
-        }}
-      >
-        로그인
-      </PrListItem>
+
+      {user.accessToken ? (
+        <PrListItem
+          onClick={() => {
+            logoutHandler();
+          }}
+        >
+          로그아웃
+        </PrListItem>
+      ) : (
+        <PrListItem
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          로그인
+        </PrListItem>
+      )}
+
       <WriteButton
         type='button'
         onClick={() => {
@@ -91,10 +111,10 @@ const SidebarTitle = styled.h1`
 const PrList = styled.ul`
   text-align: center;
   margin-bottom: 40px;
-  cursor: pointer;
 `;
 
 const PrListItem = styled.li`
+  cursor: pointer;
   font-size: 20px;
   margin-bottom: 20px;
 `;
