@@ -18,7 +18,8 @@ const PostItem = ({ data }) => {
       </Title>
       <PostInfo>
         <Category>{data.category}</Category>
-        <p>{dateChanger(data.publishedDate)}</p>
+        <p style={{ marginRight: "10px" }}>{dateChanger(data.publishedDate)}</p>
+        <div>작성자: {data.author.displayName} </div>
       </PostInfo>
       <PostText
         dangerouslySetInnerHTML={{

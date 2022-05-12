@@ -1,23 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Editor } from "../components/writer/Editor";
 import styled from "styled-components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const WriterPage = () => {
+  const user = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [content, setContent] = useState("");
   const [text, setText] = useState("");
 
-  const onChangeTitle = (e) => {
-    setTitle(e.target.value);
-  };
-
-  const onChangeCategory = (e) => {
-    setCategory(e.target.value);
-  };
+  useEffect(() => {
+    if (!user.accessToken) {
+      alert("로그인한 회원만 글을 작성할 수 있습니다.");
+      navigate("/");
+    }
+  }, []);
 
   const onClickHandler = async (e) => {
     e.preventDefault();
@@ -30,6 +31,7 @@ const WriterPage = () => {
       content: content,
       category: category,
       text: text,
+      uid: user.uid,
     };
 
     try {
@@ -48,7 +50,7 @@ const WriterPage = () => {
   return (
     <Form>
       <TitleInput
-        onChange={onChangeTitle}
+        onChange={(e) => setTitle(e.currentTarget.value)}
         value={title}
         placeholder='제목을 입력하세요'
       />
@@ -56,7 +58,7 @@ const WriterPage = () => {
         <label htmlFor='category'>카테고리</label>
         <input
           id='category'
-          onChange={onChangeCategory}
+          onChange={(e) => setCategory(e.currentTarget.value)}
           value={category}
           placeholder='카테고리를 입력하세요'
         />

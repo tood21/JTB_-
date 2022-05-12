@@ -7,6 +7,10 @@ const postSchema = new mongoose.Schema(
     content: String,
     text: String,
     postNum: Number,
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
     publishedDate: {
       type: Date,
       default: Date.now,

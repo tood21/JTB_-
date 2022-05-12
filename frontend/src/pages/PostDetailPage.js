@@ -6,32 +6,34 @@ import "react-quill/dist/quill.core.css";
 
 import { useParams, useNavigate } from "react-router-dom";
 import { dateChanger } from "../lib/module/dateChanger";
+import { useSelector } from "react-redux";
 
 const PostDetailPage = () => {
-  const navigate = useNavigate();
-  const params = useParams();
   const [postData, setPostData] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  const params = useParams();
 
   useEffect(() => {
-    const post = async () => {
-      try {
-        let body = {
-          postNum: params.postNum,
-        };
-        const response = await axios.post("/api/posts/detail", body);
+    let body = {
+      postNum: params.postNum,
+    };
+    axios
+      .post("/api/posts/detail", body)
+      .then((response) => {
         if (response.data.success) {
           setPostData(response.data.post);
+          setLoading(true);
         }
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    post();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   useEffect(() => {
-    setLoading(false);
+    console.log("postData", postData);
   }, [postData]);
 
   const postDeleteHandler = async () => {
@@ -54,14 +56,15 @@ const PostDetailPage = () => {
 
   return (
     <Wrapper>
-      {loading ? null : (
+      {loading ? (
         <>
           <Post>
             <Title>{postData.title}</Title>
             <PostInfoDiv>
               <PostInfo color={palette.orange}>{postData.category}</PostInfo>
-              <PostInfo color={palette.gray}>
-                {dateChanger(postData.publishedDate).props.children}
+              <PostInfo color={palette.gray}></PostInfo>
+              <PostInfo color='black'>
+                작성자 : {postData.author.displayName}
               </PostInfo>
             </PostInfoDiv>
 
@@ -71,18 +74,20 @@ const PostDetailPage = () => {
             ></div>
           </Post>
           <hr />
-          <ButtonDiv>
-            <button
-              onClick={() => {
-                navigate(`/post/edit/${params.postNum}`);
-              }}
-            >
-              수정
-            </button>
-            <button onClick={postDeleteHandler}>삭제</button>
-          </ButtonDiv>
+          {user.uid === postData.author.uid && (
+            <ButtonDiv>
+              <button
+                onClick={() => {
+                  navigate(`/post/edit/${params.postNum}`);
+                }}
+              >
+                수정
+              </button>
+              <button onClick={postDeleteHandler}>삭제</button>
+            </ButtonDiv>
+          )}
         </>
-      )}
+      ) : null}
     </Wrapper>
   );
 };
