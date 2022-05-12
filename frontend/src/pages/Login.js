@@ -1,11 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import firebase from "../fisebase.js";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errMessage, setErrMessage] = useState("");
+
+  useEffect(() => {
+    setTimeout(() => {
+      setErrMessage("");
+    }, 3000);
+  }, [errMessage]);
+
+  const signInHandler = async (e) => {
+    e.preventDefault();
+    if (!(email && password)) {
+      return alert("모든 값을 채워주세요");
+    }
+
+    try {
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      navigate("/");
+    } catch (error) {
+      if (error.code === "auth/user-not-found") {
+        setErrMessage("이메일이나 비밀번호가 잘못되었습니다.");
+      } else if (error.code === "auth/wrong-password") {
+        setErrMessage("이메일이나 비밀번호가 잘못되었습니다.");
+      } else {
+        setErrMessage("로그인이 실패하였습니다.");
+      }
+    }
+  };
   return (
     <LoginDiv>
       <form>
@@ -13,9 +41,9 @@ const Login = () => {
         <input
           type='email'
           id='email'
-          value={name}
+          value={email}
           onChange={(e) => {
-            setName(e.currentTarget.value);
+            setEmail(e.currentTarget.value);
           }}
         />
         <label htmlFor='password'>비밀번호</label>
@@ -27,7 +55,10 @@ const Login = () => {
             setPassword(e.currentTarget.value);
           }}
         />
-        <button>로그인</button>
+        {errMessage !== "" && (
+          <p style={{ color: "red", fontSize: "16px" }}>{errMessage}</p>
+        )}
+        <button onClick={(e) => signInHandler(e)}>로그인</button>
         <button
           onClick={() => {
             navigate("/register");
