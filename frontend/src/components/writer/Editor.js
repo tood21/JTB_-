@@ -1,9 +1,9 @@
 import React, { useRef, useMemo } from "react";
-import ReactQuill from "react-quill";
+import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
 import axios from "axios";
-import Quill from "quill";
+// import Quill from "quill";
 import ImageResize from "@looop/quill-image-resize-module-react";
 Quill.register("modules/ImageResize", ImageResize);
 
@@ -104,7 +104,7 @@ export const Editor = (props) => {
 
   //
   const onChangeHandler = (value, delta, user, editor) => {
-    props.setContent(value);
+    props.setContent(editor.getHTML());
     props.setText(editor.getText());
   };
 
@@ -118,7 +118,6 @@ export const Editor = (props) => {
         placeholder='내용을 입력해주세요.'
         ref={quillElement}
         formats={formats}
-        style={{ height: "100%" }}
       />
     </EditorWrapper>
   );

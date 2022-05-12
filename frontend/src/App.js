@@ -11,6 +11,8 @@ import PostEditPage from "./pages/PostEditPage";
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   const [sidebar, setSidebar] = useState(true);
@@ -28,6 +30,8 @@ function App() {
         <Route path='/writer' element={<WriterPage />} />
         <Route path='/post/detail/:postNum' element={<PostDetailPage />} />
         <Route path='/post/edit/:postNum' element={<PostEditPage />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
       </Routes>
     </Wrapper>
   );

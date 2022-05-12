@@ -61,7 +61,12 @@ const WriterPage = () => {
           placeholder='카테고리를 입력하세요'
         />
       </CategoryDiv>
-      <Editor content={content} setContent={setContent} setText={setText} />
+      <Editor
+        content={content}
+        setContent={setContent}
+        setText={setText}
+        style={{ marginBottom: "10px" }}
+      />
       <ButtonDiv>
         <button
           onClick={(e) => {

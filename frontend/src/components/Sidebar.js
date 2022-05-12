@@ -36,6 +36,13 @@ const Sidebar = () => {
           포트폴리오
         </PrListItem>
       </PrList>
+      <PrListItem
+        onClick={() => {
+          navigate("/login");
+        }}
+      >
+        로그인
+      </PrListItem>
       <WriteButton
         type='button'
         onClick={() => {

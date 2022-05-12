@@ -56,6 +56,7 @@ const PostEditPage = () => {
       title: title,
       content: content,
       category: category,
+      text: text,
       postNum: params.postNum,
     };
 

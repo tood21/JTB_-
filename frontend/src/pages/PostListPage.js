@@ -23,7 +23,7 @@ const PostListPage = () => {
 
   return (
     <PostListTemplete>
-      {PostList.map((data, index) => (
+      {PostList.reverse().map((data, index) => (
         <PostItem key={index} data={data} />
       ))}
     </PostListTemplete>

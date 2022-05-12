@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import palette from "../lib/styles/palette";
 import axios from "axios";
+import "react-quill/dist/quill.core.css";
+
 import { useParams, useNavigate } from "react-router-dom";
 import { dateChanger } from "../lib/module/dateChanger";
 
@@ -63,7 +65,10 @@ const PostDetailPage = () => {
               </PostInfo>
             </PostInfoDiv>
 
-            <p dangerouslySetInnerHTML={{ __html: postData.content }}></p>
+            <div
+              className='view ql-editor'
+              dangerouslySetInnerHTML={{ __html: postData.content }}
+            ></div>
           </Post>
           <hr />
           <ButtonDiv>
