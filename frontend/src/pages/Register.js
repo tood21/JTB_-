@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+// import firebase from "../fisebase.js";
 
 const Register = () => {
   const [nickname, setNickname] = useState("");
   const [Email, setEmail] = useState("");
   const [password, setpassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+
   return (
     <LoginDiv>
       <form>
