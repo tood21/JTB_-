@@ -7,6 +7,6 @@ export const dateChanger = (data) => {
   const getMinutes = String(newDate.getMinutes()).padStart(2, "0");
 
   return (
-    <p>{`${getYear}년 ${getMonth}월 ${getDate}일 ${getHours}:${getMinutes}`}</p>
+    <div>{`${getYear}년 ${getMonth}월 ${getDate}일 ${getHours}:${getMinutes}`}</div>
   );
 };

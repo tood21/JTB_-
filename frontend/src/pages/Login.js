@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import firebase from "../fisebase.js";
 
 const Login = () => {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMessage, setErrMessage] = useState("");
@@ -14,6 +17,13 @@ const Login = () => {
       setErrMessage("");
     }, 3000);
   }, [errMessage]);
+
+  useEffect(() => {
+    if (user.accessToken) {
+      alert("이미 로그인 중입니다.");
+      navigate("/");
+    }
+  }, []);
 
   const signInHandler = async (e) => {
     e.preventDefault();

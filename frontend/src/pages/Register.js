@@ -1,17 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import firebase from "../fisebase.js";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Register = () => {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [nicknameCheck, setNicknameCheck] = useState(false);
   const [ninknameCheckMessage, setNicknameCheckMessage] = useState("");
+
+  useEffect(() => {
+    if (user.accessToken) {
+      alert("이미 로그인 중입니다.");
+      navigate("/");
+    }
+  }, []);
 
   const registerHandler = async (e) => {
     e.preventDefault();

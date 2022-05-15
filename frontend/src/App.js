@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginUser, clearUser } from "./Reducer/userSlice";
 import styled from "styled-components";
 import firebase from "./fisebase.js";
+import axios from "axios";
 
 import Sidebar from "./components/Sidebar";
 import PortfolioPage from "./pages/PortfolioPage";
@@ -22,6 +23,7 @@ import Register from "./pages/Register";
 function App() {
   const [sidebar, setSidebar] = useState(true);
   const dispatch = useDispatch();
+  const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userInfo) => {
@@ -33,14 +35,27 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    console.log("카테고리 리스트", categoryList);
+  }, [categoryList]);
+
+  useEffect(() => {
+    axios.post("/api/posts/list").then((response) => {
+      let temp = [];
+      temp = response.data.postList.map((data) => data.category);
+      const newArr = new Set(temp);
+      setCategoryList([...newArr]);
+    });
+  }, []);
   return (
     <Wrapper padding={sidebar}>
-      {sidebar ? <Sidebar /> : null}
+      {sidebar ? <Sidebar categoryList={categoryList} /> : null}
       <Button move={sidebar} onClick={() => setSidebar(!sidebar)} type='button'>
         {sidebar ? "X" : <FontAwesomeIcon icon={faBars} />}
       </Button>
       <Routes>
         <Route path='/' element={<PostListPage />} />
+        <Route path='/:category' element={<PostListPage />} />
         <Route path='/resume' element={<ResumePage />} />
         <Route path='/portfolio' element={<PortfolioPage />} />
         <Route path='/writer' element={<WriterPage />} />

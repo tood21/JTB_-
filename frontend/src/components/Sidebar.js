@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SidebarItem from "./SidebarItem";
 import firebase from "../fisebase.js";
 
-const Sidebar = () => {
+const Sidebar = (props) => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  const menus = [
-    { name: "자바스크립트", path: "/resume" },
-    { name: "리액트", path: "/mylist" },
-  ];
 
   const logoutHandler = () => {
     firebase.auth().signOut();
     navigate("/");
   };
+
+  useEffect(() => {
+    console.log("카테고리정보", props.categoryList);
+  }, [props.categoryList]);
+
   return (
     <Side>
       <SidebarTitle
@@ -71,9 +72,10 @@ const Sidebar = () => {
       >
         글 작성하기
       </WriteButton>
-      {menus.map((menu, index) => (
-        <SidebarItem key={index} menu={menu} />
-      ))}
+
+      {props.categoryList.map((category, index) => {
+        return <SidebarItem key={index} category={category} />;
+      })}
     </Side>
   );
 };

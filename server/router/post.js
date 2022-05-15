@@ -39,8 +39,15 @@ router.post("/write", (req, res) => {
 });
 
 router.post("/list", (req, res) => {
-  Post.find()
+  console.log(req.body.category);
+  let temp = {};
+  if (req.body.category) {
+    temp = { category: req.body.category };
+  }
+
+  Post.find(temp)
     .populate("author")
+    .sort({ postNum: -1 })
     .exec()
     .then((doc) => {
       res.status(200).json({ success: true, postList: doc });

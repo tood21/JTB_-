@@ -32,10 +32,6 @@ const PostDetailPage = () => {
       });
   }, []);
 
-  useEffect(() => {
-    console.log("postData", postData);
-  }, [postData]);
-
   const postDeleteHandler = async () => {
     if (window.confirm("글을 삭제 하시겠습니까?")) {
       try {
@@ -118,7 +114,7 @@ const Title = styled.h2`
   font-weight: bold;
 `;
 
-const PostInfo = styled.p`
+const PostInfo = styled.div`
   font-size: 13px;
   justify-content: flex-start;
   padding-right: 20px;

@@ -2,14 +2,20 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PostItem from "../components/postlist/PostItem";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 
 const PostListPage = () => {
   const [PostList, setPostList] = useState([]);
+  const [searchParams] = useSearchParams();
+  const category = searchParams.get("category");
 
   useEffect(() => {
     const lists = async () => {
       try {
-        const response = await axios.post("/api/posts/list");
+        let body = {
+          category: category,
+        };
+        const response = await axios.post("/api/posts/list", body);
         console.log("res", response.data);
         if (response.data.success) {
           setPostList([...response.data.postList]);
@@ -19,11 +25,11 @@ const PostListPage = () => {
       }
     };
     lists();
-  }, []);
+  }, [category]);
 
   return (
     <PostListTemplete>
-      {PostList.reverse().map((data, index) => {
+      {PostList.map((data, index) => {
         return <PostItem key={index} data={data} />;
       })}
     </PostListTemplete>
