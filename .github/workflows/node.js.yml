@@ -9,13 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: node version
-        run: node -v
-
       - uses: actions/checkout@v3
-
-      - name: check folder
-        run: ls -al
 
       - name: deploy to heroku
         uses: akhileshns/heroku-deploy@v3.12.12
