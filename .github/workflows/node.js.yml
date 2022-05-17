@@ -1,0 +1,35 @@
+name: auto deploy
+
+on:
+  push:
+    branches: [dev]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: node version
+        run: node -v
+
+      - uses: actions/checkout@v3
+
+      - name: check folder
+        run: ls -al
+
+      - name: deploy to heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "jtb-blog-test1"
+          heroku_email: "tood2111@gmail.com"
+        env:
+          HD_MONGO_URI: ${{secrets.MONGO_URI}}
+          HD_S3_KEY: ${{secrets.S3_KEY}}
+          HD_S3_SECRET: ${{secrets.S3_SECRET}}
+          HD_REACT_APP_API_KEY: ${{secrets.REACT_APP_API_KEY}}
+          HD_REACT_APP_AUTH_DOMAIN: ${{secrets.REACT_APP_AUTH_DOMAIN}}
+          HD_REACT_APP_PROJECT_ID: ${{secrets.REACT_APP_PROJECT_ID}}
+          HD_REACT_APP_STORAGE_BUCKET: ${{secrets.REACT_APP_STORAGE_BUCKET}}
+          HD_REACT_APP_MESSAGING_ID: ${{secrets.REACT_APP_MESSAGING_ID}}
+          HD_REACT_APP_APP_ID: ${{secrets.REACT_APP_APP_ID}}
