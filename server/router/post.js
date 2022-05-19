@@ -1,5 +1,4 @@
 const express = require("express");
-const multer = require("multer");
 const router = express.Router();
 
 const setUpload = require("../util/upload.js");
@@ -38,11 +37,11 @@ router.post("/write", (req, res) => {
     });
 });
 
-router.post("/list", (req, res) => {
-  console.log(req.body.category);
+router.get("/list", (req, res) => {
   let temp = {};
-  if (req.body.category) {
-    temp = { category: req.body.category };
+
+  if (req.query.category !== "null") {
+    temp = { category: req.query.category };
   }
 
   Post.find(temp)
@@ -57,8 +56,8 @@ router.post("/list", (req, res) => {
     });
 });
 
-router.post("/detail", (req, res) => {
-  Post.findOne({ postNum: Number(req.body.postNum) })
+router.get("/detail/:id", (req, res) => {
+  Post.findOne({ postNum: Number(req.params.id) })
     .populate("author")
     .exec()
     .then((doc) => {
@@ -69,7 +68,7 @@ router.post("/detail", (req, res) => {
     });
 });
 
-router.post("/edit", (req, res) => {
+router.put("/edit", (req, res) => {
   let temp = {
     title: req.body.title,
     content: req.body.content,
@@ -85,8 +84,8 @@ router.post("/edit", (req, res) => {
     });
 });
 
-router.post("/delete", (req, res) => {
-  Post.deleteOne({ postNum: Number(req.body.postNum) })
+router.delete("/delete/:id", (req, res) => {
+  Post.deleteOne({ postNum: Number(req.params.id) })
     .exec()
     .then(() => {
       res.status(200).json({ success: true });

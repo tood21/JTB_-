@@ -1,27 +1,21 @@
 name: auto deploy
 
 on:
-  push:
-    branches: [dev]
+  pull_request:
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: node version
-        run: node -v
-
       - uses: actions/checkout@v3
-
-      - name: check folder
-        run: ls -al
 
       - name: deploy to heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "jtb-blog-test1"
+          heroku_app_name: "jtb-blog-1"
           heroku_email: "tood2111@gmail.com"
         env:
           HD_MONGO_URI: ${{secrets.MONGO_URI}}
