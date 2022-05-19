@@ -6,7 +6,9 @@ const SidebarItem = ({ category }) => {
   const navigate = useNavigate();
   return (
     <ul>
-      <List onClick={() => navigate(`/?category=${category}`)}>{category}</List>
+      <List onClick={() => navigate(`/list?category=${category}`)}>
+        {category}
+      </List>
     </ul>
   );
 };

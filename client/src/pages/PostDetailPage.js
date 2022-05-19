@@ -16,11 +16,8 @@ const PostDetailPage = () => {
   const params = useParams();
 
   useEffect(() => {
-    let body = {
-      postNum: params.postNum,
-    };
     axios
-      .post("/api/posts/detail", body)
+      .get(`/api/posts/detail/${params.postNum}`)
       .then((response) => {
         if (response.data.success) {
           setPostData(response.data.post);
@@ -35,10 +32,9 @@ const PostDetailPage = () => {
   const postDeleteHandler = async () => {
     if (window.confirm("글을 삭제 하시겠습니까?")) {
       try {
-        let body = {
-          postNum: params.postNum,
-        };
-        const response = await axios.post("/api/posts/delete", body);
+        const response = await axios.delete(
+          `/api/posts/delete/${params.postNum}`
+        );
         if (response.data.success) {
           alert("게시글이 삭제 되었습니다.");
           navigate("/");

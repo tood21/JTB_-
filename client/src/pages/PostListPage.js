@@ -12,11 +12,9 @@ const PostListPage = () => {
   useEffect(() => {
     const lists = async () => {
       try {
-        let body = {
-          category: category,
-        };
-        const response = await axios.post("/api/posts/list", body);
-        console.log("res", response.data);
+        const response = await axios.get(
+          `/api/posts/list?category=${category}`
+        );
         if (response.data.success) {
           setPostList([...response.data.postList]);
         }

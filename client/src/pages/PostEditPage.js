@@ -16,10 +16,7 @@ const PostEditPage = () => {
   useEffect(() => {
     const post = async () => {
       try {
-        let body = {
-          postNum: params.postNum,
-        };
-        const response = await axios.post("/api/posts/detail", body);
+        const response = await axios.get(`/api/posts/detail/${params.postNum}`);
         if (response.data.success) {
           setPostData(response.data.post);
         }
@@ -61,7 +58,7 @@ const PostEditPage = () => {
     };
 
     try {
-      const response = await axios.post("/api/posts/edit", body);
+      const response = await axios.put("/api/posts/edit", body);
       console.log("res", response.data);
       if (response.data.success) {
         alert("글 수정이 성공하였습니다.");

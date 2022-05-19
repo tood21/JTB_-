@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SidebarItem from "./SidebarItem";
 import firebase from "../fisebase.js";
+import axios from "axios";
 
-const Sidebar = (props) => {
+const Sidebar = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+  const [categoryList, setCategoryList] = useState([]);
 
   const logoutHandler = () => {
     firebase.auth().signOut();
@@ -15,8 +17,13 @@ const Sidebar = (props) => {
   };
 
   useEffect(() => {
-    console.log("카테고리정보", props.categoryList);
-  }, [props.categoryList]);
+    axios.get("/api/posts/list?category=null").then((response) => {
+      let temp = [];
+      temp = response.data.postList.map((data) => data.category);
+      const newArr = new Set(temp);
+      setCategoryList([...newArr]);
+    });
+  }, []);
 
   return (
     <Side>
@@ -73,7 +80,7 @@ const Sidebar = (props) => {
         글 작성하기
       </WriteButton>
 
-      {props.categoryList.map((category, index) => {
+      {categoryList.map((category, index) => {
         return <SidebarItem key={index} category={category} />;
       })}
     </Side>
