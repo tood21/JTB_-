@@ -17,7 +17,7 @@ const Sidebar = () => {
   };
 
   useEffect(() => {
-    axios.get("/api/posts/list?category=null").then((response) => {
+    axios.get("/api/posts/").then((response) => {
       let temp = [];
       temp = response.data.postList.map((data) => data.category);
       const newArr = new Set(temp);

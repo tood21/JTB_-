@@ -18,9 +18,7 @@ const PostItem = ({ data }) => {
       </Title>
       <PostInfo>
         <Category>{data.category}</Category>
-        <div style={{ marginRight: "10px" }}>
-          {dateChanger(data.publishedDate)}
-        </div>
+        <WriteDate>{dateChanger(data.publishedDate)}</WriteDate>
         <div>작성자 : {data.author.displayName} </div>
       </PostInfo>
       <PostText
@@ -57,7 +55,7 @@ const Title = styled.strong`
 `;
 
 const PostText = styled.p`
-  color: ${palette.gray};
+  color: ${palette.black};
   margin-bottom: 20px;
   line-height: 1.5;
 `;
@@ -65,9 +63,15 @@ const PostText = styled.p`
 const PostInfo = styled.div`
   display: flex;
   margin-bottom: 10px;
+  font-size: 13px;
+`;
+
+const WriteDate = styled.div`
+  color: ${palette.gray};
+  margin-right: 10px;
 `;
 
 const Category = styled.div`
-  color: ${palette.orange};
   margin-right: 20px;
+  color: ${palette.orange};
 `;
