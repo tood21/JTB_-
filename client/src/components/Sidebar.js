@@ -43,14 +43,6 @@ const Sidebar = () => {
         >
           이력서
         </PrListItem>
-
-        <PrListItem
-          onClick={() => {
-            navigate("/portfolio");
-          }}
-        >
-          포트폴리오
-        </PrListItem>
       </PrList>
 
       {user.accessToken ? (
@@ -99,7 +91,7 @@ const Side = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-right: 2px solid black;
+  border-right: 2px solid rgba(0, 0, 0, 0.3);
   &::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -126,6 +118,7 @@ const PrListItem = styled.li`
   cursor: pointer;
   font-size: 20px;
   margin-bottom: 20px;
+  list-style: none;
 `;
 
 const WriteButton = styled.button`

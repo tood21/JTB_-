@@ -19,4 +19,5 @@ const List = styled.li`
   font-size: 20px;
   margin-bottom: 20px;
   cursor: pointer;
+  list-style: none;
 `;
