@@ -43,6 +43,13 @@ const Sidebar = () => {
         >
           이력서
         </PrListItem>
+        <PrListItem
+          onClick={() => {
+            navigate("/portfolio");
+          }}
+        >
+          포트폴리오
+        </PrListItem>
       </PrList>
 
       {user.accessToken ? (
