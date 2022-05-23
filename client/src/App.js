@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { loginUser, clearUser } from "./Reducer/userSlice";
 import styled from "styled-components";
 import firebase from "./fisebase.js";
-import axios from "axios";
 
 import Sidebar from "./components/Sidebar";
 import PortfolioPage from "./pages/PortfolioPage";

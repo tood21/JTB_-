@@ -29,7 +29,7 @@ const GlobalStyle = createGlobalStyle`
 
   }
   ol, ul, li {
-    list-style: none;
+    /* list-style: none; */
   }
   img {
     /* display: block; */

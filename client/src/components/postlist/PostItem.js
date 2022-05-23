@@ -18,9 +18,7 @@ const PostItem = ({ data }) => {
       </Title>
       <PostInfo>
         <Category>{data.category}</Category>
-        <div style={{ marginRight: "10px" }}>
-          {dateChanger(data.publishedDate)}
-        </div>
+        <WriteDate>{dateChanger(data.publishedDate)}</WriteDate>
         <div>작성자 : {data.author.displayName} </div>
       </PostInfo>
       <PostText
@@ -38,11 +36,15 @@ const PostItem = ({ data }) => {
 export default PostItem;
 
 const Container = styled.li`
-  border: 2px solid blue;
+  border: 1px solid rgba(0, 0, 0, 0.2);
   width: 80%;
   height: 200px;
   margin-bottom: 50px;
   padding: 20px;
+  list-style: none;
+  border-radius: 10px;
+  -webkit-box-shadow: 8px 8px 7px 0px rgba(0, 0, 0, 0.52);
+  box-shadow: 8px 8px 7px 0px rgba(0, 0, 0, 0.52);
 `;
 const Title = styled.strong`
   font-size: 24px;
@@ -53,7 +55,7 @@ const Title = styled.strong`
 `;
 
 const PostText = styled.p`
-  color: ${palette.gray};
+  color: ${palette.black};
   margin-bottom: 20px;
   line-height: 1.5;
 `;
@@ -61,9 +63,15 @@ const PostText = styled.p`
 const PostInfo = styled.div`
   display: flex;
   margin-bottom: 10px;
+  font-size: 13px;
+`;
+
+const WriteDate = styled.div`
+  color: ${palette.gray};
+  margin-right: 10px;
 `;
 
 const Category = styled.div`
-  color: ${palette.orange};
   margin-right: 20px;
+  color: ${palette.orange};
 `;

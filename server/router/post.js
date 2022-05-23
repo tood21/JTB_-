@@ -37,6 +37,19 @@ router.post("/write", (req, res) => {
     });
 });
 
+router.get("/", (req, res) => {
+  Post.find()
+    .populate("author")
+    .sort({ postNum: -1 })
+    .exec()
+    .then((doc) => {
+      res.status(200).json({ success: true, postList: doc });
+    })
+    .catch((err) => {
+      res.status(400).json({ success: false });
+    });
+});
+
 router.get("/list", (req, res) => {
   let temp = {};
 
