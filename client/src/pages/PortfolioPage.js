@@ -9,11 +9,14 @@ const PortfolioPage = () => {
     <FullPage>
       <Slide>
         <ProjectDiv>
-          <ProjectImg src={market} alt='감귤마켓프로젝트'></ProjectImg>
-          <InfoDiv>
+          <ProjectImg
+            width='350px'
+            src={market}
+            alt='감귤마켓프로젝트'
+          ></ProjectImg>
+          <InfoDiv marginLeft='150px'>
             <ProjectTitle>감귤마켓</ProjectTitle>
             <ProjectText>상품을 등록하고 홍보하는 SNS서비스</ProjectText>
-
             <ProjectInfo>
               <ProjectDesc>
                 <p className='key'>팀 인원</p>
@@ -55,8 +58,8 @@ const PortfolioPage = () => {
       </Slide>
       <Slide>
         <ProjectDiv>
-          <ProjectImg src={JTB} alt='감귤마켓프로젝트'></ProjectImg>
-          <InfoDiv>
+          <ProjectImg width='400px' src={JTB} alt='개인기술블로그'></ProjectImg>
+          <InfoDiv marginLeft='100px'>
             <ProjectTitle>JTB (jeongbae's Technical Blog)</ProjectTitle>
             <ProjectText>개발 지식을 저장하고 공유하는 기술 블로그</ProjectText>
 
@@ -115,11 +118,11 @@ const ProjectDiv = styled.div`
 `;
 
 const ProjectImg = styled.img`
-  width: 350px;
+  width: ${(props) => props.width};
 `;
 
 const InfoDiv = styled.div`
-  margin-left: 150px;
+  margin-left: ${(props) => props.marginLeft};
 `;
 
 const ProjectTitle = styled.h3`

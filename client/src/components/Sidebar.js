@@ -10,6 +10,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const [categoryList, setCategoryList] = useState([]);
+  const [postData, setPostData] = useState([]);
 
   const logoutHandler = () => {
     firebase.auth().signOut();
@@ -22,6 +23,7 @@ const Sidebar = () => {
       temp = response.data.postList.map((data) => data.category);
       const newArr = new Set(temp);
       setCategoryList([...newArr]);
+      setPostData(response.data.postList);
     });
   }, []);
 
